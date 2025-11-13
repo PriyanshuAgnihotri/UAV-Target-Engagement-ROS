@@ -1,0 +1,12 @@
+<launch>
+    <include file="$(find mavros_posix_sitl)/launch/px4_posix_sitl.launch">
+        <arg name="world" value="$(find uav_target_engagement)/worlds/warzone.world"/>
+    </include>
+
+    <node name="spawn_tank" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-sdf -file $(find uav_target_engagement)/models/tank_model/model.sdf -model tank_target -x 50 -y 50 -z 0" />
+
+    <node name="uav_control" pkg="uav_target_engagement" type="uav_control_node.py" output="screen"/>
+    <node name="computer_vision" pkg="uav_target_engagement" type="computer_vision_node.py" output="screen"/>
+    <node name="mission_planner" pkg="uav_target_engagement" type="mission_planner_node.py" output="screen"/>
+</launch>
